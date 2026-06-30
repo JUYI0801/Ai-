@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 AI 大模型全景对比 · 2026-06-30 更新</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06080d;--surface:#0e1117;--surface-2:#161b24;--border:#252d3a;
+  --accent:#4f8cff;--accent-glow:rgba(79,140,255,.15);
+  --green:#2dd4a0;--green-dim:rgba(45,212,160,.12);
+  --red:#ff6b6b;--red-dim:rgba(255,107,107,.10);
+  --yellow:#ffd166;--yellow-dim:rgba(255,209,102,.10);
+  --purple:#b18cff;--purple-dim:rgba(177,140,255,.10);
+  --orange:#ff9f43;--orange-dim:rgba(255,159,67,.10);
+  --text:#e2e8f0;--text-muted:#7a8599;--text-dim:#4a5568;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 10%,rgba(79,140,255,.06) 0%,transparent 50%),radial-gradient(ellipse at 85% 80%,rgba(177,140,255,.04) 0%,transparent 50%),radial-gradient(ellipse at 50% 50%,rgba(45,212,160,.03) 0%,transparent 60%);pointer-events:none;z-index:0}
+.container{max-width:1480px;margin:0 auto;padding:40px 24px 80px;position:relative;z-index:1}
+.header{text-align:center;margin-bottom:56px;animation:fadeUp .7s ease forwards}
+.header .tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);background:var(--accent-glow);border:1px solid rgba(79,140,255,.2);padding:6px 18px;border-radius:20px;margin-bottom:20px}
+.header h1{font-size:clamp(28px,4vw,44px);font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#e2e8f0 0%,#7a8599 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px}
+.header p{color:var(--text-muted);font-size:14.5px;max-width:720px;margin:0 auto}
+.section{margin-bottom:52px;animation:fadeUp .7s ease forwards;opacity:0}
+.section:nth-child(2){animation-delay:.08s}.section:nth-child(3){animation-delay:.16s}.section:nth-child(4){animation-delay:.24s}.section:nth-child(5){animation-delay:.32s}.section:nth-child(6){animation-delay:.4s}.section:nth-child(7){animation-delay:.48s}.section:nth-child(8){animation-delay:.56s}.section:nth-child(9){animation-delay:.62s}
+.section-title{display:flex;align-items:center;gap:12px;margin-bottom:20px;font-size:20px;font-weight:700}
+.section-title .icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);background:var(--surface);scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.table-wrap::-webkit-scrollbar{height:6px}.table-wrap::-webkit-scrollbar-track{background:transparent}.table-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:1020px}
+thead th{background:var(--surface-2);padding:14px 16px;text-align:left;font-weight:600;font-size:11.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;position:sticky;top:0;z-index:2}
+thead th:first-child{border-radius:12px 0 0 0}thead th:last-child{border-radius:0 12px 0 0}
+tbody tr{border-bottom:1px solid rgba(37,45,58,.5);transition:background .2s ease}
+tbody tr:hover{background:rgba(79,140,255,.04)}tbody tr:last-child{border-bottom:none}
+td{padding:14px 16px;vertical-align:top;line-height:1.65}
+td:first-child{font-weight:600;white-space:nowrap}
+.badge{display:inline-block;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:600;letter-spacing:.3px}
+.badge-t1{background:var(--accent-glow);color:var(--accent);border:1px solid rgba(79,140,255,.25)}
+.badge-t2{background:var(--green-dim);color:var(--green);border:1px solid rgba(45,212,160,.2)}
+.badge-t3{background:var(--yellow-dim);color:var(--yellow);border:1px solid rgba(255,209,102,.2)}
+.badge-new{background:var(--red-dim);color:var(--red);border:1px solid rgba(255,107,107,.25)}
+.badge-prev{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(177,140,255,.2)}
+.tag-mini{display:inline-block;padding:1px 8px;border-radius:4px;font-size:10.5px;font-weight:500;margin:1px 2px}
+.tag-green{background:var(--green-dim);color:var(--green)}.tag-red{background:var(--red-dim);color:var(--red)}
+.tag-blue{background:var(--accent-glow);color:var(--accent)}.tag-yellow{background:var(--yellow-dim);color:var(--yellow)}
+.tag-purple{background:var(--purple-dim);color:var(--purple)}.tag-orange{background:var(--orange-dim);color:var(--orange)}
+.score-bar{display:flex;align-items:center;gap:8px;margin:3px 0}
+.score-bar .label{font-size:11px;color:var(--text-muted);width:58px;flex-shrink:0;text-align:right}
+.score-bar .bar-track{flex:1;height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;min-width:72px}
+.score-bar .bar-fill{height:100%;border-radius:3px;transition:width .8s ease}
+.score-bar .val{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;width:36px;flex-shrink:0}
+.fill-blue{background:linear-gradient(90deg,var(--accent),#7babff)}.fill-green{background:linear-gradient(90deg,var(--green),#5eebc5)}
+.fill-yellow{background:linear-gradient(90deg,var(--yellow),#ffe299)}.fill-purple{background:linear-gradient(90deg,var(--purple),#c9adff)}
+.fill-red{background:linear-gradient(90deg,var(--red),#ff9999)}.fill-orange{background:linear-gradient(90deg,var(--orange),#ffbe76)}
+.pros-cons{list-style:none;padding:0}
+.pros-cons li{padding:2px 0;font-size:13px;display:flex;align-items:flex-start;gap:6px}
+.pros-cons .bullet{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:7px}
+.bullet-green{background:var(--green)}.bullet-red{background:var(--red)}
+.scene-card{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin-bottom:12px;transition:border-color .2s ease}
+.scene-card:hover{border-color:var(--accent)}.scene-card h4{font-size:15px;margin-bottom:8px}
+.scene-card .rec{font-size:13px;color:var(--text-muted);line-height:1.7}
+.scene-card .rec strong{color:var(--accent);font-weight:600}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12px}
+.callout{background:linear-gradient(135deg,rgba(79,140,255,.08),rgba(79,140,255,.02));border:1px solid rgba(79,140,255,.18);border-radius:12px;padding:22px 26px;margin-bottom:16px;font-size:13.5px;color:var(--text-muted);line-height:1.75}
+.callout strong{color:var(--text)}
+.footer{text-align:center;margin-top:60px;padding-top:32px;border-top:1px solid var(--border);color:var(--text-dim);font-size:12px;animation:fadeUp .7s ease .6s forwards;opacity:0}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){.container{padding:24px 12px 60px}td,th{padding:10px 12px}}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="tag">Updated · 2026-06-30</div>
+    <h1>2026 AI 大模型全景对比</h1>
+    <p>涵盖 OpenAI · Anthropic · Google · xAI · 小米 · 阿里 · 智谱 · DeepSeek 等 19 款最新模型，基准数据来自 HuggingFace 模型卡片(citation:7)(citation:13)、Artificial Analysis(citation:1)(citation:5)、非线智能 ReLE(citation:10)(citation:11)及各厂商官方公告。</p>
+  </div>
+
+  <!-- ═══════════ 1. 综合能力总览 ═══════════ -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:var(--accent-glow);color:var(--accent)">①</span>
+      最新模型综合能力总览
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>模型</th><th>开发商</th><th>发布日期</th><th>状态</th><th>核心标签</th><th>参数规模</th><th>上下文</th><th>综合评分</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td>Claude Mythos</td><td>Anthropic</td><td class="mono">预览中</td>
+            <td><span class="badge badge-prev">Preview</span></td>
+            <td><span class="tag-mini tag-red">SOTA</span> <span class="tag-mini tag-green">SWE 93.9%</span></td>
+            <td class="mono">未公开</td><td class="mono">未公开</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-purple" style="width:99%"></div></div><span class="val" style="color:var(--purple)">99</span></div></td>
+          </tr>
+          <tr>
+            <td>GPT-6 (Spud)</td><td>OpenAI</td><td class="mono">2026-04-14</td>
+            <td><span class="badge badge-new">NEW</span></td>
+            <td><span class="tag-mini tag-green">Symphony</span> <span class="tag-mini tag-blue">原生多模态</span> <span class="tag-mini tag-yellow">+40%</span></td>
+            <td class="mono">MoE</td><td class="mono">200万</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-blue" style="width:97%"></div></div><span class="val" style="color:var(--accent)">97</span></div></td>
+          </tr>
+          <tr>
+            <td>Claude Opus 4.8</td><td>Anthropic</td><td class="mono">2026-05-29</td>
+            <td><span class="badge badge-new">NEW</span></td>
+            <td><span class="tag-mini tag-green">Agent编程</span> <span class="tag-mini tag-purple">判断力↑37%</span> <span class="tag-mini tag-yellow">快速2.5x</span></td>
+            <td class="mono">未公开</td><td class="mono">200万字</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-blue" style="width:96%"></div></div><span class="val" style="color:var(--accent)">96</span></div></td>
+          </tr>
+          <tr>
+            <td>GPT-5.6</td><td>OpenAI</td><td class="mono">2026-06 预览</td>
+            <td><span class="badge badge-prev">限量预览</span></td>
+            <td><span class="tag-mini tag-green">ultrafast</span> <span class="tag-mini tag-blue">150万Token</span></td>
+            <td class="mono">未公开</td><td class="mono">150万</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-blue" style="width:95%"></div></div><span class="val" style="color:var(--accent)">95</span></div></td>
+          </tr>
+          <tr>
+            <td>GPT-5.5</td><td>OpenAI</td><td class="mono">2026-04-23</td>
+            <td><span class="badge badge-t1">旗舰</span></td>
+            <td><span class="tag-mini tag-green">全能</span> <span class="tag-mini tag-yellow">免费开放</span> <span class="tag-mini tag-blue">Daybreak</span></td>
+            <td class="mono">未公开</td><td class="mono">100万</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-blue" style="width:94%"></div></div><span class="val" style="color:var(--accent)">94</span></div></td>
+          </tr>
+          <tr>
+            <td>Claude Opus 4.7</td><td>Anthropic</td><td class="mono">2026-04-16</td>
+            <td><span class="badge badge-t1">旗舰</span></td>
+            <td><span class="tag-mini tag-green">编程王者</span> <span class="tag-mini tag-blue">长文本</span></td>
+            <td class="mono">未公开</td><td class="mono">200万字</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-blue" style="width:94%"></div></div><span class="val" style="color:var(--accent)">94</span></div></td>
+          </tr>
+          <tr>
+            <td>Gemini 3.1 Pro</td><td>Google</td><td class="mono">2026上半年</td>
+            <td><span class="badge badge-t1">旗舰</span></td>
+            <td><span class="tag-mini tag-purple">原生多模态</span> <span class="tag-mini tag-blue">ARC-AGI 77.1%</span></td>
+            <td class="mono">MoE</td><td class="mono">200万</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-blue" style="width:93%"></div></div><span class="val" style="color:var(--accent)">93</span></div></td>
+          </tr>
+          <tr>
+            <td>Qwen3.7-Max</td><td>阿里云</td><td class="mono">2026-05</td>
+            <td><span class="badge badge-new">NEW</span></td>
+            <td><span class="tag-mini tag-green">编码↑</span> <span class="tag-mini tag-blue">Agent强</span> <span class="tag-mini tag-yellow">多模态↑</span></td>
+            <td class="mono">MoE</td><td class="mono">128K+</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-green" style="width:91%"></div></div><span class="val" style="color:var(--green)">91</span></div></td>
+          </tr>
+          <tr>
+            <td>GLM-5.2</td><td>智谱AI</td><td class="mono">2026-06</td>
+            <td><span class="badge badge-new">NEW</span></td>
+            <td><span class="tag-mini tag-green">MIT开源</span> <span class="tag-mini tag-blue">744B/40B</span> <span class="tag-mini tag-purple">100万上下文</span></td>
+            <td class="mono">744B / 40B</td><td class="mono">100万</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-green" style="width:90%"></div></div><span class="val" style="color:var(--green)">90</span></div></td>
+          </tr>
+          <tr>
+            <td>MiMo V2.5 Pro</td>
+            <td>小米</td><td class="mono">2026-04-28(citation:5)</td>
+            <td><span class="badge badge-new">NEW</span></td>
+            <td><span class="tag-mini tag-green">Agent效率</span> <span class="tag-mini tag-blue">1T/42B MoE</span> <span class="tag-mini tag-purple">MIT开源</span></td>
+            <td class="mono">1.02T / 42B</td><td class="mono">1M(citation:7)</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-green" style="width:89%"></div></div><span class="val" style="color:var(--green)">89</span></div></td>
+          </tr>
+          <tr>
+            <td>Grok 4.5</td><td>xAI</td><td class="mono">内测中</td>
+            <td><span class="badge badge-prev">内测</span></td>
+            <td><span class="tag-mini tag-orange">特斯拉部署</span> <span class="tag-mini tag-blue">SpaceX</span></td>
+            <td class="mono">未公开</td><td class="mono">未公开</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-yellow" style="width:87%"></div></div><span class="val" style="color:var(--yellow)">87*</span></div></td>
+          </tr>
+          <tr>
+            <td>Gemini 3.5 Flash</td><td>Google</td><td class="mono">2026-05 I/O</td>
+            <td><span class="badge badge-new">NEW</span></td>
+            <td><span class="tag-mini tag-green">免费</span> <span class="tag-mini tag-yellow">GPT-5.5的92%</span> <span class="tag-mini tag-blue">低15-20x</span></td>
+            <td class="mono">MoE</td><td class="mono">256K</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-green" style="width:86%"></div></div><span class="val" style="color:var(--green)">86</span></div></td>
+          </tr>
+          <tr>
+            <td>DeepSeek V4-Pro</td><td>深度求索</td><td class="mono">持续迭代</td>
+            <td><span class="badge badge-t2">主力</span></td>
+            <td><span class="tag-mini tag-yellow">数学最强</span> <span class="tag-mini tag-purple">开源</span></td>
+            <td class="mono">MoE 1.6T/49B</td><td class="mono">128K</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-yellow" style="width:86%"></div></div><span class="val" style="color:var(--yellow)">86</span></div></td>
+          </tr>
+          <tr>
+            <td>Kimi K2.6</td><td>月之暗面</td><td class="mono">2026-04-21</td>
+            <td><span class="badge badge-t2">主力</span></td>
+            <td><span class="tag-mini tag-blue">长文本</span> <span class="tag-mini tag-green">Agent</span></td>
+            <td class="mono">MoE 1.04T/32B</td><td class="mono">256K+</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-yellow" style="width:84%"></div></div><span class="val" style="color:var(--yellow)">84</span></div></td>
+          </tr>
+          <tr>
+            <td>MiMo V2.5 Pro UltraSpeed</td><td>小米</td><td class="mono">2026-06-08(citation:12)</td>
+            <td><span class="badge badge-prev">限时体验</span></td>
+            <td><span class="tag-mini tag-green">1000+ TPS</span> <span class="tag-mini tag-blue">通用GPU</span></td>
+            <td class="mono">同 V2.5 Pro</td><td class="mono">1M</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-green" style="width:89%"></div></div><span class="val" style="color:var(--green)">89†</span></div></td>
+          </tr>
+          <tr>
+            <td>MiMo V2.5</td><td>小米</td><td class="mono">2026-04-28(citation:8)</td>
+            <td><span class="badge badge-t2">开源</span></td>
+            <td><span class="tag-mini tag-blue">原生全模态</span> <span class="tag-mini tag-green">48T预训练</span></td>
+            <td class="mono">310B / 15B</td><td class="mono">1M</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-orange" style="width:79%"></div></div><span class="val" style="color:var(--orange)">79</span></div></td>
+          </tr>
+          <tr>
+            <td>Llama 4 Maverick</td><td>Meta</td><td class="mono">2026</td>
+            <td><span class="badge badge-t3">开源</span></td>
+            <td><span class="tag-mini tag-purple">开源可商用</span> <span class="tag-mini tag-yellow">社区</span></td>
+            <td class="mono">MoE 400B</td><td class="mono">1M</td>
+            <td><div class="score-bar"><span class="label">综合</span><div class="bar-track"><div class="bar-fill fill-orange" style="width:73%"></div></div><span class="val" style="color:var(--orange)">73</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:10px;font-size:11.5px;color:var(--text-dim)">* 预估，完整基准待发布。† UltraSpeed 与 Pro 同模型架构，评分一致，速度维度单独衡量。数据来源：HuggingFace(citation:7)(citation:13)、Artificial Analysis(citation:1)(citation:5)、ReLE(citation:10)(citation:11)。</div>
+  </div>
+
+  <!-- ═══════════ 2. 核心基准 ═══════════ -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:var(--green-dim);color:var(--green)">②</span>
+      核心基准测试对比（有据可查的数据）
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>模型</th><th>SWE-bench Pro</th><th>SWE-bench Verified</th><th>Terminal-Bench</th><th>ClawEval pass^3</th><th>τ3-bench</th><th>HLE(工具)</th><th>其他亮点</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td>Claude Mythos</td>
+            <td class="mono" style="color:var(--purple);font-weight:700">93.9%</td>
+            <td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td>
+            <td>英国 AISI 首个同时通过两套网络安全测试</td>
+          </tr>
+          <tr>
+            <td>Claude Opus 4.8</td>
+            <td class="mono" style="color:var(--green);font-weight:700">69.2%</td>
+            <td class="mono">88.6%</td>
+            <td class="mono" style="font-weight:700">74.6%</td>
+            <td class="mono">—</td><td class="mono">—</td><td class="mono">—</td>
+            <td>事实准确性 +37%；缺陷遗留率降至 1/4</td>
+          </tr>
+          <tr>
+            <td>Claude Opus 4.7</td>
+            <td class="mono" style="font-weight:700">64.3%(citation:2)</td>
+            <td class="mono">87.6%(citation:2)</td>
+            <td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td>
+            <td>代码量减少 40%，功能通过率持平</td>
+          </tr>
+          <tr>
+            <td>Claude Opus 4.6</td>
+            <td class="mono">57.3%(citation:5)(citation:10)</td>
+            <td class="mono">—</td>
+            <td class="mono">65.4%(citation:10)</td>
+            <td class="mono">70.4%(citation:10)</td>
+            <td class="mono">—</td><td class="mono">—</td>
+            <td>ReLE 综合 70.0%(citation:10)</td>
+          </tr>
+          <tr>
+            <td>GPT-5.5</td>
+            <td class="mono">—</td><td class="mono">—</td>
+            <td class="mono" style="color:var(--green);font-weight:700">78.2%</td>
+            <td class="mono">—</td><td class="mono">—</td><td class="mono">—</td>
+            <td>幻觉率↓52.5%；全员免费</td>
+          </tr>
+          <tr>
+            <td>GPT-5.4</td>
+            <td class="mono" style="font-weight:700">57.7%(citation:5)(citation:10)</td>
+            <td class="mono">—</td>
+            <td class="mono">75.1%(citation:10)</td>
+            <td class="mono">—</td>
+            <td class="mono" style="font-weight:700">72.9%(citation:5)</td>
+            <td class="mono">58.7%(citation:10)</td>
+            <td>GDPval 83% 超人类；GSM8K 94.2%</td>
+          </tr>
+          <tr>
+            <td>MiMo V2.5 Pro</td>
+            <td class="mono" style="font-weight:700">57.2%(citation:5)(citation:10)</td>
+            <td class="mono">78.9%(citation:2)</td>
+            <td class="mono" style="font-weight:700">68.4%(citation:5)(citation:10)</td>
+            <td class="mono" style="font-weight:700">63.8%(citation:5)(citation:10)</td>
+            <td class="mono" style="font-weight:700">72.9%(citation:5)</td>
+            <td class="mono">48.0%(citation:5)(citation:10)</td>
+            <td>GDPVal-AA 1581 Elo；Coding Bench 73.7 > Opus4.6 71.5(citation:10)；GSM8K 99.6%</td>
+          </tr>
+          <tr>
+            <td>GPT-6 (Spud)</td>
+            <td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td>
+            <td>IMO 全满分；Symphony 能耗↓40%</td>
+          </tr>
+          <tr>
+            <td>Gemini 3.5 Flash</td>
+            <td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td>
+            <td>编码推理达 GPT-5.5 的 92%，成本低 15-20 倍</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:10px;font-size:11.5px;color:var(--text-dim)">关键发现：MiMo V2.5 Pro 的 SWE-bench Pro（57.2%）与 GPT-5.4（57.7%）、Claude Opus 4.6（57.3%）基本持平(citation:5)(citation:10)。τ3-bench 得分 72.9 与 GPT-5.4 完全一致(citation:5)。ClawEval 中每条轨迹约 7 万 token，同能力水平竞品通常需要 11-17 万 token(citation:2)。</div>
+  </div>
+
+  <!-- ═══════════ 3. 基础模型学术基准 ═══════════ -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:var(--yellow-dim);color:var(--yellow)">③</span>
+      基础模型学术基准对比（HuggingFace 模型卡片(citation:7)(citation:13)）
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>基准</th><th>MiMo V2.5 Pro</th><th>MiMo V2.5</th><th>DS-V4-Pro</th><th>DS-V4-Flash</th><th>Kimi K2</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>激活 / 总参数</td><td class="mono" style="font-weight:700">42B / 1.02T</td><td class="mono">15B / 310B</td><td class="mono">49B / 1.6T</td><td class="mono">13B / 284B</td><td class="mono">32B / 1.04T</td></tr>
+          <tr><td>MMLU (5-shot)</td><td class="mono" style="font-weight:700">89.4</td><td class="mono">86.3</td><td class="mono" style="color:var(--green);font-weight:700">90.1</td><td class="mono">88.7</td><td class="mono">87.8</td></tr>
+          <tr><td>MMLU-Redux (5-shot)</td><td class="mono" style="color:var(--green);font-weight:700">92.8</td><td class="mono">89.8</td><td class="mono">90.8</td><td class="mono">89.4</td><td class="mono">90.2</td></tr>
+          <tr><td>MMLU-Pro (5-shot)</td><td class="mono">68.5</td><td class="mono">65.8</td><td class="mono" style="color:var(--green);font-weight:700">73.5</td><td class="mono">68.3</td><td class="mono">69.2</td></tr>
+          <tr><td>GPQA-Diamond (5-shot)</td><td class="mono" style="color:var(--green);font-weight:700">66.7</td><td class="mono">58.1</td><td class="mono">—</td><td class="mono">—</td><td class="mono">48.1</td></tr>
+          <tr><td>BBH (3-shot)</td><td class="mono">88.4</td><td class="mono">87.2</td><td class="mono">87.5</td><td class="mono">86.9</td><td class="mono" style="color:var(--green);font-weight:700">88.7</td></tr>
+          <tr><td><strong>GSM8K (8-shot)</strong></td><td class="mono" style="color:var(--green);font-weight:700;font-size:14px">99.6</td><td class="mono">83.3</td><td class="mono">92.6</td><td class="mono">90.8</td><td class="mono">92.1</td></tr>
+          <tr><td>MATH (4-shot)</td><td class="mono" style="color:var(--green);font-weight:700">86.2</td><td class="mono">67.7</td><td class="mono">64.5</td><td class="mono">57.4</td><td class="mono">70.2</td></tr>
+          <tr><td>AIME 24&25 (2-shot)</td><td class="mono" style="color:var(--green);font-weight:700">37.3</td><td class="mono">36.9</td><td class="mono">—</td><td class="mono">—</td><td class="mono">31.6</td></tr>
+          <tr><td>HumanEval+ (1-shot)</td><td class="mono">75.6</td><td class="mono">71.3</td><td class="mono">—</td><td class="mono">—</td><td class="mono" style="color:var(--green);font-weight:700">84.8</td></tr>
+          <tr><td>LiveCodeBench v6</td><td class="mono" style="color:var(--green);font-weight:700">39.6</td><td class="mono">35.5</td><td class="mono">—</td><td class="mono">—</td><td class="mono">26.3</td></tr>
+          <tr><td>SWE-Bench (AgentLess)</td><td class="mono" style="color:var(--green);font-weight:700">35.7</td><td class="mono">30.8</td><td class="mono">—</td><td class="mono">—</td><td class="mono">28.2</td></tr>
+          <tr><td>C-Eval (5-shot)</td><td class="mono">91.5</td><td class="mono">88.6</td><td class="mono" style="color:var(--green);font-weight:700">93.1</td><td class="mono">92.1</td><td class="mono">92.5</td></tr>
+          <tr><td>CMMLU (5-shot)</td><td class="mono">90.2</td><td class="mono">88.2</td><td class="mono" style="color:var(--green);font-weight:700">90.8</td><td class="mono">90.4</td><td class="mono">90.9</td></tr>
+          <tr><td>GlobalMMLU (5-shot)</td><td class="mono" style="color:var(--green);font-weight:700">83.6</td><td class="mono">77.4</td><td class="mono">—</td><td class="mono">—</td><td class="mono">80.7</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:10px;font-size:11.5px;color:var(--text-dim)">绿色高亮为该行最高分。数据来源：HuggingFace XiaomiMiMo/MiMo-V2.5-Pro(citation:7)(citation:13)。GSM8K 99.6%、MATH 86.2% 在同规模开源模型中表现突出(citation:7)。</div>
+  </div>
+
+  <!-- ═══════════ 4. Agent 效率 ═══════════ -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:var(--orange-dim);color:var(--orange)">④</span>
+      Agent 效率与定价对比
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>模型</th><th>输入定价 /MTok</th><th>输出定价 /MTok</th><th>Agent 任务 Token 消耗</th><th>Token 效率</th><th>开源</th><th>上下文</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td>MiMo V2.5 Pro</td>
+            <td class="mono">$1(citation:2) / ￥8(citation:13)</td>
+            <td class="mono">$3(citation:2) / ￥22(citation:13)</td>
+            <td class="mono" style="font-weight:700">~70K / 任务(citation:2)</td>
+            <td><span class="tag-mini tag-green">基准线</span></td>
+            <td><span class="tag-mini tag-green">MIT ✓</span></td>
+            <td class="mono">1M</td>
+          </tr>
+          <tr>
+            <td>Claude Opus 4.8 常规</td>
+            <td class="mono">$5</td><td class="mono">$25</td>
+            <td class="mono">~110-170K(citation:2)</td>
+            <td><span class="tag-mini tag-red">多 40-60%</span></td>
+            <td><span class="tag-mini tag-red">✗</span></td>
+            <td class="mono">200万字</td>
+          </tr>
+          <tr>
+            <td>Claude Opus 4.8 快速</td>
+            <td class="mono">$10</td><td class="mono">$50</td>
+            <td class="mono">~110-170K(citation:2)</td>
+            <td><span class="tag-mini tag-red">多 40-60%</span></td>
+            <td><span class="tag-mini tag-red">✗</span></td>
+            <td class="mono">200万字</td>
+          </tr>
+          <tr>
+            <td>GPT-5.5</td>
+            <td class="mono">$2.50</td><td class="mono">$12</td>
+            <td class="mono">~110-170K(citation:2)</td>
+            <td><span class="tag-mini tag-red">多 40-60%</span></td>
+            <td><span class="tag-mini tag-red">✗</span></td>
+            <td class="mono">100万</td>
+          </tr>
+          <tr>
+            <td>GPT-5.4</td>
+            <td class="mono">$2.50</td><td class="mono">$15(citation:2)</td>
+            <td class="mono">~110-170K(citation:2)</td>
+            <td><span class="tag-mini tag-red">多 40-60%</span></td>
+            <td><span class="tag-mini tag-red">✗</span></td>
+            <td class="mono">100万</td>
+          </tr>
+          <tr>
+            <td>Gemini 3.1 Pro</td>
+            <td class="mono">$2(citation:2)</td><td class="mono">$12(citation:2)</td>
+            <td class="mono">~110-170K(citation:2)</td>
+            <td><span class="tag-mini tag-red">多 40-60%</span></td>
+            <td><span class="tag-mini tag-red">✗</span></td>
+            <td class="mono">200万</td>
+          </tr>
+          <tr>
+            <td>Gemini 3.5 Flash</td>
+            <td class="mono">$0.40</td><td class="mono">$1.60</td>
+            <td class="mono">—</td>
+            <td><span class="tag-mini tag-yellow">待测</span></td>
+            <td><span class="tag-mini tag-red">✗</span></td>
+            <td class="mono">256K</td>
+          </tr>
+          <tr>
+            <td>GLM-5.2</td>
+            <td class="mono">开源免费</td><td class="mono">MIT 协议</td>
+            <td class="mono">—</td>
+            <td><span class="tag-mini tag-yellow">—</span></td>
+            <td><span class="tag-mini tag-green">MIT ✓</span></td>
+            <td class="mono">100万</td>
+          </tr>
+          <tr>
+            <td>DeepSeek V4-Pro</td>
+            <td class="mono">￥2</td><td class="mono">￥8</td>
+            <td class="mono">—</td>
+            <td><span class="tag-mini tag-yellow">—</span></td>
+            <td><span class="tag-mini tag-green">开源 ✓</span></td>
+            <td class="mono">128K</td>
+          </tr>
+          <tr>
+            <td>Kimi K2.6</td>
+            <td class="mono">￥4</td><td class="mono">￥12</td>
+            <td class="mono">—</td>
+            <td><span class="tag-mini tag-red">比 MiMo 多 42% Token(citation:1)</span></td>
+            <td><span class="tag-mini tag-red">✗</span></td>
+            <td class="mono">256K+</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">
+      <strong>核心发现(citation:2)：</strong>MiMo V2.5 Pro 的 $1/$3 定价是主流旗舰中最低的，叠加每任务 40%-60% 的 token 节省(citation:2)，
+      实际单次 Agent 任务成本约为 Claude Opus 4.7 的 1/10 至 1/20。ClawEval 中每条轨迹约 7 万 token，而 Claude / Gemini / GPT 通常需 11-17 万 token(citation:2)。
+      小米目前限时免收缓存写入费用(citation:8)。
+    </div>
+  </div>
+
+  <!-- ═══════════ 5. 长程任务验证 ═══════════ -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:var(--purple-dim);color:var(--purple)">⑤</span>
+      长程 Agent 任务实战验证（MiMo V2.5 Pro 案例）
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>任务</th><th>详情</th><th>耗时</th><th>工具调用</th><th>结果</th><th>意义</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td>SysY 编译器(citation:5)(citation:8)</td>
+            <td>用 Rust 从零实现北大《编译原理》课程完整编译器（lexer / parser / Koopa IR / RISC-V 后端）</td>
+            <td class="mono">4.3h</td>
+            <td class="mono">672 次</td>
+            <td style="color:var(--green);font-weight:700">233/233 满分(citation:5)(citation:8)</td>
+            <td>通常需 CS 本科生数周；冷启动通过率 59%(citation:5)</td>
+          </tr>
+          <tr>
+            <td>视频编辑器(citation:5)(citation:8)</td>
+            <td>仅凭简单指令交付多轨时间线、裁剪、交叉淡化、音频混合、导出的完整应用</td>
+            <td class="mono">11.5h</td>
+            <td class="mono">1,868 次</td>
+            <td style="color:var(--green);font-weight:700">8,192 行代码(citation:5)</td>
+            <td>跨越数千次工具调用时的目标一致性(citation:2)</td>
+          </tr>
+          <tr>
+            <td>模拟 EDA(citation:8)</td>
+            <td>台积电 180nm CMOS 工艺 FVF-LDO 稳压器设计，接入 ngspice 闭环迭代</td>
+            <td class="mono">~1h</td>
+            <td class="mono">—</td>
+            <td style="color:var(--green);font-weight:700">六项指标全部达标(citation:8)</td>
+            <td>研究生级工程任务；关键指标提升 22 倍(citation:8)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">
+      <strong>长上下文验证(citation:7)：</strong>GraphWalks 基准 1M tokens 下仍保持 BFS 0.37 / Parents 0.62。上一代 V2 Pro 在 1M 时完全崩溃（0.00）(citation:7)。
+    </div>
+  </div>
+
+  <!-- ═══════════ 6. 优缺点对比 ═══════════ -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:var(--orange-dim);color:var(--orange)">⑥</span>
+      各模型最新优缺点详细对比
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th style="min-width:130px">模型</th>
+          <th style="min-width:300px">核心优势</th>
+          <th style="min-width:280px">明显短板</th>
+          <th style="min-width:150px">最佳适用场景</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td>Claude Opus 4.8</td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-green"></span>SWE-Bench Pro 69.2%，编程顶尖</li>
+              <li><span class="bullet bullet-green"></span>事实准确性 +37%，缺陷遗留率降至 1/4</li>
+              <li><span class="bullet bullet-green"></span>快速模式 2.5 倍提速，成本降至前代 1/3</li>
+              <li><span class="bullet bullet-green"></span>effort 控制精细调节推理深度</li>
+            </ul></td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-red"></span>Terminal-Bench 74.6% 仍低于 GPT-5.5 的 78.2%</li>
+              <li><span class="bullet bullet-red"></span>被曝 API 测试中自称其他模型，引发"蒸馏"争议</li>
+              <li><span class="bullet bullet-red"></span>Agent 高消耗形态 tokens 消耗巨大</li>
+            </ul></td>
+            <td>Agent 工程协作、企业安全、复杂代码审计</td>
+          </tr>
+          <tr>
+            <td>GPT-5.5</td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-green"></span>Terminal-Bench 78.2% 领先 Opus 4.8</li>
+              <li><span class="bullet bullet-green"></span>幻觉率↓52.5%，Daybreak 安全框架</li>
+              <li><span class="bullet bullet-green"></span>全员免费开放，生态最成熟</li>
+            </ul></td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-red"></span>编程深度不及 Claude Mythos 系列</li>
+              <li><span class="bullet bullet-red"></span>中文本土化仍有欠缺</li>
+            </ul></td>
+            <td>通用企业助手、跨设备 Agent、日常生产力</td>
+          </tr>
+          <tr>
+            <td>GPT-6 (Spud)</td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-green"></span>Symphony 稀疏架构，性能↑40%，能耗↓40%</li>
+              <li><span class="bullet bullet-green"></span>200 万 Token，原生多模态</li>
+              <li><span class="bullet bullet-green"></span>API 完全兼容 GPT-5.4，零迁移</li>
+            </ul></td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-red"></span>公开基准数据尚不完整</li>
+              <li><span class="bullet bullet-red"></span>向量检索和视频生成仍处初级阶段</li>
+            </ul></td>
+            <td>超长文档、全仓库代码审计、长周期 Agent</td>
+          </tr>
+          <tr>
+            <td>Gemini 3.1 Pro</td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-green"></span>原生多模态，ARC-AGI-2 77.1%</li>
+              <li><span class="bullet bullet-green"></span>200 万 Token 上下文</li>
+            </ul></td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-red"></span>中文输出偏"翻译腔"</li>
+              <li><span class="bullet bullet-red"></span>3.5 Pro 推迟至 7 月</li>
+            </ul></td>
+            <td>多模态信息处理、科学推理、长文档</td>
+          </tr>
+          <tr>
+            <td>Qwen3.7-Max</td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-green"></span>接近 Opus 4.7 Max 水平</li>
+              <li><span class="bullet bullet-green"></span>编码、Agent、多模态全面升级</li>
+              <li><span class="bullet bullet-green"></span>ReLE 评测 75.4% 领先(citation:10)</li>
+            </ul></td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-red"></span>与最前沿旗舰仍有差距</li>
+              <li><span class="bullet bullet-red"></span>国际影响力待提升</li>
+            </ul></td>
+            <td>中文内容生产、数据分析、高并发应用</td>
+          </tr>
+          <tr>
+            <td>MiMo V2.5 Pro</td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-green"></span>SWE-bench Pro 57.2% 与 GPT-5.4(57.7%)持平(citation:5)(citation:10)</li>
+              <li><span class="bullet bullet-green"></span>τ3-bench 72.9 与 GPT-5.4 完全一致(citation:5)</li>
+              <li><span class="bullet bullet-green"></span>GSM8K 99.6%，MATH 86.2%(citation:7)</li>
+              <li><span class="bullet bullet-green"></span>Token 效率比竞品高 40-60%，成本仅 Claude 的 1/10-1/20(citation:2)</li>
+              <li><span class="bullet bullet-green"></span>1M 上下文真正可用（GraphWalks 验证）(citation:7)</li>
+              <li><span class="bullet bullet-green"></span>MIT 协议完全开源，1T 参数 / 42B 激活(citation:7)</li>
+              <li><span class="bullet bullet-green"></span>UltraSpeed 模式突破 1000+ TPS(citation:12)</li>
+              <li><span class="bullet bullet-green"></span>长程 Agent 672-1868 次工具调用稳定运行(citation:5)</li>
+            </ul></td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-red"></span>GPQA Diamond 66.7% 远低于 Opus 4.7 的 94.2%(citation:2)</li>
+              <li><span class="bullet bullet-red"></span>通用推理与顶尖旗舰有明显差距(citation:2)</li>
+              <li><span class="bullet bullet-red"></span>V2.5 Pro 不支持音频/视频输入(citation:5)</li>
+              <li><span class="bullet bullet-red"></span>采样参数敏感，推荐 temperature=1.0(citation:2)</li>
+              <li><span class="bullet bullet-red"></span>社区独立验证尚浅(citation:2)</li>
+              <li><span class="bullet bullet-red"></span>思考时间较长(citation:8)</li>
+              <li><span class="bullet bullet-red"></span>企业工具链成熟度不及 OpenAI / Anthropic(citation:2)</li>
+            </ul></td>
+            <td>大规模 Agent 流水线、编程辅助、自托管部署、预算受限团队(citation:2)</td>
+          </tr>
+          <tr>
+            <td>GLM-5.2</td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-green"></span>MIT 全量开源，744B / 40B 激活</li>
+              <li><span class="bullet bullet-green"></span>100 万 Token 无损上下文</li>
+              <li><span class="bullet bullet-green"></span>Hugging Face 提供全球免费算力</li>
+              <li><span class="bullet bullet-green"></span>可节省 AI 账单 30%-70%</li>
+            </ul></td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-red"></span>推理和编程深度不及海外旗舰</li>
+              <li><span class="bullet bullet-red"></span>企业级工具链仍在完善</li>
+            </ul></td>
+            <td>成本优化替代、私有化部署、中文企业场景</td>
+          </tr>
+          <tr>
+            <td>DeepSeek V4-Pro</td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-green"></span>MMLU-Pro 73.5，数学/科学计算强(citation:7)</li>
+              <li><span class="bullet bullet-green"></span>完全开源，自部署成本极低</li>
+              <li><span class="bullet bullet-green"></span>MMLU 90.1，C-Eval 93.1(citation:7)</li>
+            </ul></td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-red"></span>多模态能力薄弱</li>
+              <li><span class="bullet bullet-red"></span>自研系统栈复杂，部署门槛高(citation:8)</li>
+            </ul></td>
+            <td>数学科研、代码开发、私有化部署</td>
+          </tr>
+          <tr>
+            <td>Kimi K2.6</td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-green"></span>ReLE 评测 72.9%，Agent 工具调用强(citation:10)</li>
+              <li><span class="bullet bullet-green"></span>HumanEval+ 84.8(citation:7)</li>
+              <li><span class="bullet bullet-green"></span>长文本处理成熟</li>
+            </ul></td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-red"></span>Agent Token 消耗比 MiMo 多 42%(citation:1)</li>
+              <li><span class="bullet bullet-red"></span>多模态功能较少</li>
+            </ul></td>
+            <td>论文阅读、法律文书、长文本处理</td>
+          </tr>
+          <tr>
+            <td>Grok 4.5</td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-green"></span>已在特斯拉和 SpaceX 内部部署</li>
+              <li><span class="bullet bullet-green"></span>加速自动驾驶和机器人研发</li>
+            </ul></td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-red"></span>仍处内部测试，公开基准未知</li>
+              <li><span class="bullet bullet-red"></span>中文能力偏弱</li>
+            </ul></td>
+            <td>自动驾驶、机器人、内部生产力工具</td>
+          </tr>
+          <tr>
+            <td>Gemini 3.5 Flash</td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-green"></span>达 GPT-5.5 的 92%，成本低 15-20 倍</li>
+              <li><span class="bullet bullet-green"></span>Google I/O 免费开放</li>
+            </ul></td>
+            <td><ul class="pros-cons">
+              <li><span class="bullet bullet-red"></span>仍比 GPT-5.5 有 8% 差距</li>
+              <li><span class="bullet bullet-red"></span>中文输出偏"翻译腔"</li>
+            </ul></td>
+            <td>高并发轻量任务、免费体验、翻译</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══════════ 7. ReLE 排名 ═══════════ -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:var(--red-dim);color:var(--red)">⑦</span>
+      非线智能 ReLE 综合评测排名（中文场景，~1.5 万题(citation:10)(citation:11)）
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>排名</th><th>模型</th><th>准确率</th><th>平均耗时</th><th>每千次花费(元)</th><th>性价比评估</th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="mono">1</td><td>qwen3.6-max-preview</td><td class="mono" style="color:var(--green);font-weight:700">75.4%</td><td class="mono">—</td><td class="mono">—</td><td><span class="tag-mini tag-green">综合第一</span></td></tr>
+          <tr><td class="mono">2</td><td>gemini-3.1-pro-preview</td><td class="mono" style="color:var(--green);font-weight:700">75.2%</td><td class="mono">—</td><td class="mono">—</td><td><span class="tag-mini tag-green">综合第二</span></td></tr>
+          <tr><td class="mono">3</td><td>qwen3.5-plus</td><td class="mono" style="font-weight:700">73.3%</td><td class="mono">—</td><td class="mono">22.9</td><td><span class="tag-mini tag-green">极致性价比</span></td></tr>
+          <tr><td class="mono">4</td><td>kimi-k2.6</td><td class="mono" style="font-weight:700">72.9%</td><td class="mono">—</td><td class="mono">100.4</td><td><span class="tag-mini tag-yellow">中等</span></td></tr>
+          <tr><td class="mono">5</td><td>Doubao-Seed-2.0-pro</td><td class="mono" style="font-weight:700">72.8%</td><td class="mono">—</td><td class="mono">22.5</td><td><span class="tag-mini tag-green">极致性价比</span></td></tr>
+          <tr><td class="mono">6</td><td>gpt-5.4-high</td><td class="mono" style="font-weight:700">72.6%</td><td class="mono">—</td><td class="mono">122.3</td><td><span class="tag-mini tag-red">较贵</span></td></tr>
+          <tr><td class="mono">7</td><td>mimo-v2.5-pro</td><td class="mono" style="font-weight:700">71.4%</td><td class="mono">56s</td><td class="mono">64.3(citation:10)</td><td><span class="tag-mini tag-green">同档位领先(citation:10)</span></td></tr>
+          <tr><td class="mono">8</td><td>Kimi-K2.5-Thinking</td><td class="mono">70.8%</td><td class="mono">—</td><td class="mono">77.1</td><td><span class="tag-mini tag-yellow">中等</span></td></tr>
+          <tr><td class="mono">9</td><td>GLM-5.1</td><td class="mono">70.7%</td><td class="mono">—</td><td class="mono">73.8</td><td><span class="tag-mini tag-yellow">中等</span></td></tr>
+          <tr><td class="mono">10</td><td>gemini-3-flash-preview</td><td class="mono">71.2%</td><td class="mono">—</td><td class="mono">—</td><td><span class="tag-mini tag-yellow">中等</span></td></tr>
+          <tr><td class="mono">—</td><td>claude-opus-4.6</td><td class="mono">70.0%</td><td class="mono">—</td><td class="mono">—</td><td><span class="tag-mini tag-red">低于 mimo(citation:10)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">
+      <strong>数据来源：非线智能 ReLE(citation:10)(citation:11)。</strong>
+      关键发现：mimo-v2.5-pro 在 60-80 元/千次档位内准确率首位（71.4%），超越 Kimi-K2.5-Thinking（70.8%）、GLM-5.1（70.7%）和 claude-opus-4.6（70.0%）(citation:10)。
+      代际进步：较上一代 MiMo-V2-Pro（65.8%）提升 5.6 个百分点，排名从第 35 位跃升至第 7 位(citation:10)。
+      响应时间从 265s 缩短至 56s（降幅约 79%）(citation:10)。
+    </div>
+  </div>
+
+  <!-- ═══════════ 8. 技术架构亮点 ═══════════ -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:var(--accent-glow);color:var(--accent)">⑧</span>
+      2026 年代表性技术架构亮点
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;">
+      <div class="scene-card">
+        <h4>GPT-6 · Symphony 稀疏架构</h4>
+        <div class="rec">
+          <strong>核心创新：</strong>首个融合稀疏专家混合（MoE）与密集注意力的统一体系(citation:11)(citation:15)。<br>
+          <strong>性能：</strong>综合性能较 GPT-5.4 提升约 40%，能耗下降 40%(citation:11)。<br>
+          <strong>上下文：</strong>200 万 Token，可一次性处理完整代码库和项目文档(citation:11)(citation:15)。<br>
+          <strong>兼容性：</strong>API 完全兼容 GPT-5.4，现有应用零代码迁移(citation:15)。<br>
+          <strong>多模态：</strong>原生多模态支持，草图可直接转为可运行原型代码(citation:11)。
+        </div>
+      </div>
+      <div class="scene-card">
+        <h4>MiMo V2.5 Pro · MoE + MTP + MOPD</h4>
+        <div class="rec">
+          <strong>架构：</strong>1.02T 总参数 / 42B 激活，70 层（1 dense + 69 MoE），384 专家每 token 激活 8 个(citation:7)(citation:13)。<br>
+          <strong>注意力：</strong>混合 SWA+GA（6:1），KV 缓存减少近 7 倍(citation:7)(citation:8)。<br>
+          <strong>MTP：</strong>3 层多 Token 预测模块，输出速度提升 3 倍(citation:7)。<br>
+          <strong>后训练：</strong>SFT → 领域专项 RL → 多教师在线策略蒸馏（MOPD）三阶段范式(citation:7)(citation:8)。<br>
+          <strong>UltraSpeed：</strong>FP4 量化 + DFlash 并行验证 + Persistent Kernel，通用 GPU 突破 1000+ TPS(citation:12)。
+        </div>
+      </div>
+      <div class="scene-card">
+        <h4>Claude Opus 4.8 · Agent 工程化</h4>
+        <div class="rec">
+          <strong>编程能力：</strong>SWE-Bench Pro 69.2%，SWE-Bench Verified 88.6%(citation:17)。<br>
+          <strong>可靠性：</strong>事实准确性较 Opus 4.7 提升 37%，代码缺陷遗留率降至 1/4(citation:17)。<br>
+          <strong>Agent 模式：</strong>Dynamic Workflows 将编码 Agent 推向"AI 工程队"(citation:19)。<br>
+          <strong>effort 控制：</strong>支持 1-8 级推理深度调节(citation:19)。<br>
+          <strong>快速模式：</strong>成本降至前代 1/3，速度提升 2.5 倍(citation:17)(citation:18)。
+        </div>
+      </div>
+      <div class="scene-card">
+        <h4>GLM-5.2 · MIT 全量开源</h4>
+        <div class="rec">
+          <strong>规模：</strong>744B 总参数 / 40B 激活，MIT 协议全量开源(citation:6)。<br>
+          <strong>上下文：</strong>100 万 Token 无损上下文(citation:6)。<br>
+          <strong>生态：</strong>Hugging Face 首次为中国模型提供全球免费算力(citation:6)。<br>
+          <strong>价值：</strong>可替代闭源方案节省 30%-70% AI 账单(citation:6)。<br>
+          <strong>意义：</strong>开源模型已达闭源约 90% 能力，模型正变成"水电煤"式标准化商品(citation:6)。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 9. 场景选型 ═══════════ -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:var(--red-dim);color:var(--red)">⑨</span>
+      场景化选型推荐指南
+    </div>
+
+    <div class="scene-card">
+      <h4>🤖 大规模 Agent 流水线</h4>
+      <div class="rec">
+        最高性价比：<strong>MiMo V2.5 Pro</strong>（token 效率高 40-60%，$1/$3 定价，UltraSpeed 1000+ TPS）(citation:2)(citation:12)。
+        最高质量：<strong>Claude Opus 4.8</strong>（判断力 +37%，Dynamic Workflows）或 <strong>GPT-5.5/5.6</strong>（生态最成熟）。
+        全时 Agent：<strong>Gemini Spark</strong>（24/7 自主执行，注意隐私风险）。
+      </div>
+    </div>
+
+    <div class="scene-card">
+      <h4>💻 编程 / 代码工程</h4>
+      <div class="rec">
+        顶级：<strong>Claude Mythos</strong>（SWE-bench Pro 93.9%）。综合：<strong>Claude Opus 4.8</strong>（69.2%）或 <strong>GPT-5.5</strong>（Terminal-Bench 78.2%）。
+        性价比：<strong>MiMo V2.5 Pro</strong>（SWE-bench Pro 57.2% 与 GPT-5.4 持平，Coding Bench 73.7 > Opus 4.6）(citation:5)(citation:10)。
+        代码专精：<strong>Mistral Codestral</strong>（HumanEval+ 96.8%）。国产：<strong>Qwen3.7-Max</strong>、<strong>Kimi K2.6</strong>。
+      </div>
+    </div>
+
+    <div class="scene-card">
+      <h4>📐 数学推理 / 科学计算</h4>
+      <div class="rec">
+        基础数学极强：<strong>MiMo V2.5 Pro</strong>（GSM8K 99.6%，MATH 86.2%）(citation:7)。
+        科学推理：<strong>Gemini 3.1 Pro</strong>（ARC-AGI 77.1%）。通用推理：<strong>GPT-5.4</strong>（GPQA 92.8%）、<strong>Claude Opus 4.7</strong>（GPQA 94.2%）。
+        数学计算最强：<strong>DeepSeek V4-Pro</strong>（MMLU-Pro 73.5）(citation:7)。
+      </div>
+    </div>
+
+    <div class="scene-card">
+      <h4>🎨 多模态（图文音视频）</h4>
+      <div class="rec">
+        综合多模态首选 <strong>Gemini 3.1/3.5 Pro</strong>（原生架构，SVG / 3D / 动画突破）。
+        原生多模态代码生成 <strong>GPT-6</strong>（草图转代码）。
+        <strong>MiMo V2.5</strong>（非 Pro）为原生全模态，可处理图像/音频/视频(citation:1)；V2.5 Pro 支持文本与图像(citation:5)。
+        视频生成：<strong>Veo 3.1</strong>（免费）或 <strong>Sora 2</strong>（质量最佳）。
+      </div>
+    </div>
+
+    <div class="scene-card">
+      <h4>🇨🇳 中文场景 / 国内合规</h4>
+      <div class="rec">
+        ReLE 中文评测综合最强：<strong>Qwen3.7-Max</strong>（75.4%）(citation:10)。
+        中文推理标杆：<strong>GLM-5.2</strong>（MIT 开源，HuggingFace 免费算力）。
+        <strong>MiMo V2.5 Pro</strong> C-Eval 91.5、CMMLU 90.2(citation:7)，ReLE 中文 71.4% 超越 Claude Opus 4.6（70.0%）(citation:10)。
+      </div>
+    </div>
+
+    <div class="scene-card">
+      <h4>💰 极致成本控制 / 开源自部署</h4>
+      <div class="rec">
+        API 最低：<strong>MiMo V2.5 Pro</strong>（$1/$3 + 40-60% token 节省）(citation:2)；<strong>豆包</strong>（极低定价）；<strong>Gemini 3.5 Flash</strong>（免费）。
+        开源自部署：<strong>GLM-5.2</strong>（MIT，744B）、<strong>DeepSeek V4-Pro</strong>（开源）、<strong>Llama 4</strong>。
+        轻量部署：<strong>MiMo V2.5</strong>（310B/15B 激活，MIT）(citation:8)；<strong>Gemma 4 12B</strong>（笔记本可跑）。
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 10. 趋势 ═══════════ -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:rgba(255,255,255,.06);color:var(--text-muted)">⑩</span>
+      2026 下半年关键趋势
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;">
+      <div class="scene-card">
+        <h4>Agent 成为终极战场</h4>
+        <div class="rec">
+          核心竞争从"谁更聪明"转向<strong>谁更能进入真实工作流</strong>。
+          Claude Dynamic Workflows(citation:19)、Gemini Spark 24/7 Agent、GPT-5.6 Agent 级操作(citation:14)、MiMo V2.5 Pro 的 token 效率优势(citation:2)——
+          Token 价格战的本质是让 Agent 高消耗形态跑得起来(citation:19)。
+        </div>
+      </div>
+      <div class="scene-card">
+        <h4>开源逼近闭源</h4>
+        <div class="rec">
+          MiMo V2.5 Pro 的 SWE-bench Pro 已与 GPT-5.4 持平(citation:5)(citation:10)；GLM-5.2 MIT 全量开源；Gemma 4 12B 笔记本可跑——
+          开源模型已达闭源约 90% 能力。模型正变成"水电煤"式商品，控制权向<strong>基础设施层和应用层</strong>迁移(citation:6)。
+        </div>
+      </div>
+      <div class="scene-card">
+        <h4>速度成为新战场</h4>
+        <div class="rec">
+          MiMo V2.5 Pro UltraSpeed 用通用 GPU 突破 1000+ TPS(citation:12)；
+          Claude Opus 4.8 快速模式 2.5 倍提速(citation:17)；GPT-5.6 Codex ultrafast 提速 2-3 倍(citation:14)。
+          高频量化、实时风控、多 Agent 协同等过去被速度挡在门外的场景正在被打开(citation:12)。
+        </div>
+      </div>
+      <div class="scene-card">
+        <h4>价格战全面升级</h4>
+        <div class="rec">
+          GPT-5.6 定价仅 Anthropic 一半且承诺继续降价(citation:12)；Anthropic 快速模式成本降至前代 1/3(citation:17)；
+          GLM-5.2 开源可节省 30%-70%(citation:6)。
+          开发者策略：<strong>搭建多模型路由，不要绑定单一供应商</strong>(citation:6)。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>数据来源：HuggingFace(citation:7)(citation:13) · Artificial Analysis(citation:1)(citation:5)(citation:8) · ReLE(citation:10)(citation:11) · Anthropic(citation:17)(citation:18) · 小米官方(citation:2) · Quantum Bit(citation:12) · 各厂商官方公告</p>
+    <p style="margin-top:6px;">AI 模型快速迭代，建议以实际场景测试数据为最终决策依据 · 更新于 2026-06-30</p>
+  </div>
+
+</div>
+</body>
+</html>

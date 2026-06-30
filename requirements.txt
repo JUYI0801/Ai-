@@ -1,0 +1,4 @@
+# Python依赖
+# 如果需要更复杂的数据获取，可以添加相应的库
+# requests>=2.31.0
+# beautifulsoup4>=4.12.0
